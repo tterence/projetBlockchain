@@ -23,6 +23,10 @@ contract Test{
         address exp; //adresse du demandeur
         State state;
     }
+    struct ResponseList{
+        Response[] replist;
+    }
+    mapping(address => ResponseList) listResp;
     mapping(address => Response) responses;
     //array d'utilisateur
     address[] userlist;
@@ -69,5 +73,8 @@ contract Test{
     }
     function getAddresses()constant returns(address[]){
        return userlist;
+    }
+    function getResponses(address add)constant returns(address, uint, address, uint){
+        return (responses[add].demand.dest, responses[add].demand.test, responses[add].exp, uint(responses[add].state));
     }
 }
