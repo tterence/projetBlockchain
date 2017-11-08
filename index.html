@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Syst&egrave;me de r&eacute;putation</title>
+    <link rel="stylesheet" type="text/css" href="./app.css" />
+    <script src="./app.js"></script>
+  </head>
+  <body>
+    <section id="top">
+      <input name="saisie" type="text" placeholder="e.g.,0x93e66d9baea28c17d9fc393b53e3fbdd76899dae" required />
+      <input class="loupe" type="submit" value="" />
+      <p>
+        <input id="monProfil" type="submit" value="Voir mon CV" onClick=''>
+      </p>
+    </section>
+    <section id="main">
+      <article id="ajouter">
+        <select id="listeD">
+          <option>Choisis une adresse</option>
+        </select>
+        <h2>Ajouter une exp&eacute;rience</h2>
+        <p>
+          <label for="types">Type de contrat :</label>
+          <select name="types" id="types">
+            <option value="cdd" selected>CDD</option>
+            <option value="cdi">CDI</option>
+            <option value="stage">Stage</option>
+            <option value="ctt">CTT</option>
+            <option value="alternance">Alternance</option>
+          </select>
+        </p>      
+        <p>
+          <label for="desc">Description :</label>
+          <textarea id="desc" rows="5" cols="25"></textarea>
+        </p>
+        <p>
+          <label for="dateD">Date de d&eacute;but :</label>
+          <input type="date" id="dateD" >
+        </p>
+        <p>
+          <label for="dateF">Date de fin :</label>
+          <input type="date" id="dateF"></p>
+        <p>
+          <label for="entreprise">Nom de l'entreprise :</label>
+          <input type="text" id="entreprise">
+        </p>
+        <p>
+          <label for="dest">Validateur :</label>
+          <select id="dest">
+            <option>Choisis une adresse</option>
+          </select>
+        </p>
+            
+        <p>
+          <input type="submit" value="Envoyer" onclick="App.getValue()">
+        </p>
+      </article>
+      <article id="repondre">
+        <select id="listeR" onchange="App.getResponse()">
+          <option>Choisis une adresse</option>
+        </select>
+          <h2 >R&eacute;pondre aux demandes</h2>  
+          <ul id="listeRep">   
+            <li>
+              <article>
+                  <h3><b>0x93e66d9baea28c17d9fc393b53e3fbdd76899dae</b></h3>
+                  <p>CDD</p>
+                  <p>AMAZONE</p>
+                  <p>Responsable des ventes</p>
+                  <p>De <b>20/01/2017</b> &agrave; <b>20/04/2017</b></p>
+                  <input id="valider" type="submit" value="Valider" onClick='Valider()'>
+                  <input id="refuser" type="submit" value="Refuser" onClick='Refuser()'>
+              </article>
+            </li>
+          </ul>  
+      </article>
+    </section>
+  </body>
+</html>
