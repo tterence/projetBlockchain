@@ -1,0 +1,152 @@
+body {
+  background: #F2F2F2;
+}
+
+#top{
+  background-color: #0B2F3A;
+  padding-bottom: 50px;
+  margin : -20px -10px 30px -10px;
+}
+
+#listeD{
+  float:left;
+  margin-left: 100px;
+  margin-top: 25px;
+}
+
+a {
+    float: right;
+    margin-right: 120px;
+    margin-top: 25px;
+    font-size: 15px;
+    font-family: "Arial";
+    color:  white;
+    font-style: normal;
+    text-decoration: none;
+}
+
+#cv{
+  margin: 0px 90px 90px 90px;
+  padding: 0px 18px 0px 18px;
+  border:1px solid #A4A4A4;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+}
+
+#listeCV {
+  list-style: none;
+  font-size: 15px;
+  padding: 0;
+  font-family: "Arial";
+  color: #585858;
+}
+
+#listeCV li{
+  border-top:1px solid #A4A4A4;
+}
+
+#ajouter{
+  float: left;
+  margin-left: 90px;
+  padding: 0px 18px 18px 18px;
+  border:1px solid #A4A4A4;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  width: 45%;
+}
+
+#repondre{
+  float: right;
+  margin-right: 90px;
+  background:url(http://www.afipl.com/wp-content/uploads/2016/06/fond-bleu-site.jpg) 0 0;
+  padding: 0px 18px 18px 18px;
+  border-radius: 4px;
+  width: 30%;
+}
+
+h2 {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    font-variant: small-caps;
+    font-size: 20px;
+    font-family: "Arial";
+    font-weight: normal;
+    text-align: left;
+    border-bottom:1px solid #A4A4A4;
+}
+
+#cv h2 {
+  border: none;
+}
+
+#repondre h2 {
+  color: white;
+  border-bottom:1px solid white;
+}
+
+#form label{ 
+  width: 150px; 
+  font-weight: bold;
+  font-family: "Arial";
+  font-size: 15px;
+  color: #585858;
+}
+
+.sel {
+  width: 100%;
+  padding: 0;
+  margin-top: 7px;
+}
+
+#envoyer {
+  float: right;
+  background-color:#084B8A;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px 25px;
+  font-weight: bold;
+}
+
+#listeRep {
+  list-style: none;
+  padding: 0;
+  font-family: "Arial";
+  font-size: 10px;
+  color: #585858;
+}
+
+#listeRep li{
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  background-color: #FFFFFF;
+}
+
+#listeRep article {
+  padding: 10px;
+}
+
+#listeRep #valider {
+  float: right;
+  background-color:#084B8A;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+#listeRep #refuser {
+  float: right;
+  background-color:#084B8A;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  padding: 8px 12px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+

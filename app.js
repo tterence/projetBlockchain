@@ -56,7 +56,7 @@ window.App = {
       for (let addresse of accounts){
         select[0].innerHTML+= '<option key='+addresse+' value='+addresse+'>'+addresse+'</option>'
         select[1].innerHTML+= '<option key='+addresse+' value='+addresse+'>'+addresse+'</option>'
-        select[2].innerHTML+= '<option key='+addresse+' value='+addresse+'>'+addresse+'</option>'
+        //select[2].innerHTML+= '<option key='+addresse+' value='+addresse+'>'+addresse+'</option>'
       }
       //console.log('addrs',addresses);
       //self.refreshBalance();
@@ -125,16 +125,14 @@ window.App = {
     }
     userAccountChoice[0] = this.selectValue('listeD');
     data.type = this.selectValue('types');
-
-    data.comment = document.getElementById('desc').text;
-
+    data.comment = document.getElementById('desc').value;
     data.dateD = document.getElementById('dateD').value;
     data.dateF = document.getElementById('dateF').value;
     data.entreprise = document.getElementById('entreprise').value;
     data.dest = this.selectValue('dest');
     console.log('test',data);
     Test.deployed()
-      .then((instance)=> instance.sendDemand(data.dest, data.test,{'from': userAccountChoice[0], 'gas': 1000000}))
+      .then((instance)=> instance.sendDemand(data.dest, data.test,{'from': userAccountChoice[0],"gas":1000000} ))
       .then(()=>console.log('demande envoyée sans pb'),()=>console.log('erreur demande'))
   },
   selectValue: function(id){
@@ -146,7 +144,7 @@ window.App = {
   getResponse: function(){
     userAccountChoice[1] = this.selectValue('listeR');
     Test.deployed()
-      .then((instance)=> instance.getResponses(userAccountChoice[1], {'from':userAccountChoice[1], 'gas': 1000000}))
+      .then((instance)=> instance.getResponses(userAccountChoice[1], {'from':userAccountChoice[1],"gas":1000000}))
       .then((value)=>{responses = value; console.log('rep:'+responses,typeof responses)},(error)=>console.log(error));
   }
 };
