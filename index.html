@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Syst&egrave;me de r&eacute;putation</title>
+    <link rel="stylesheet" type="text/css" href="./app.css" />
+    <script src="./app.js"></script>
+  </head>
+  <body>
+      <section id="top">
+        <select id="listeD" onchange="App.getResponse()">
+          <option>Choisissez votre adresse</option>
+        </select>
+        <p>
+          <a href="#ajouter">G&eacute;rer votre compte</a>
+        </p>
+      </section>
+
+      <section id="cv">
+        <h2>Mes exp&eacute;riences</h2>  
+          <ul id="listeCV">   
+            <li>
+              <article>
+                  <p><b>AMAZONE</b></p>
+                  <p>CDD</p>
+                  <p>Responsable des ventes</p>
+                  <p>De 20/01/2017 &agrave; 20/04/2017</p>
+                  <p>Valid&eacute; par <b>0x93e66d9baea28c17d9fc393b53e3fbdd76899dae</b></p>
+              </article>
+            </li>
+            <li>
+              <article>
+                  <p><b>AMAZONE</b></p>
+                  <p>CDD</p>
+                  <p>Responsable des ventes</p>
+                  <p>De 20/01/2017 &agrave; 20/04/2017</p>
+                  <p>Valid&eacute; par <b>0x93e66d9baea28c17d9fc393b53e3fbdd76899dae</b></p>
+              </article>
+            </li>
+          </ul>  
+      </section>
+
+      <article id="ajouter">
+        <h2>Ajouter une exp&eacute;rience</h2>
+        <section id="form">
+        <p>
+          <label for="types">Type de contrat :</label>
+          <select name="types" class="sel" id="types">
+            <option value="cdd" selected>CDD</option>
+            <option value="cdi">CDI</option>
+            <option value="stage">Stage</option>
+            <option value="ctt">CTT</option>
+            <option value="alternance">Alternance</option>
+          </select>
+        </p>      
+        <p>
+          <label for="desc">Description :</label>
+          <textarea id="desc" class="sel" rows="5" cols="25"></textarea>
+        </p>
+        <p>
+          <label for="dateD">Date de d&eacute;but :</label>
+          <input type="date"  class="sel" id="dateD" >
+        </p>
+        <p>
+          <label for="dateF">Date de fin :</label>
+          <input type="date" class="sel" id="dateF"></p>
+        <p>
+          <label for="entreprise">Nom de l'entreprise :</label>
+          <input type="text" class="sel" id="entreprise">
+        </p>
+        <p>
+          <label for="dest">Validateur :</label>
+          <select class="sel" id="dest">
+            <option>Adresses</option>
+          </select>
+        </p> 
+        <p>
+          <input type="submit" value="Envoyer" id="envoyer" onclick="App.getValue()">
+        </p>
+        </section>
+      </article>
+
+      <article id="repondre">
+          <h2>R&eacute;pondre aux demandes</h2>  
+          <ul id="listeRep">   
+            <li>
+              <article>
+                  <h3><b>0x93e66d9baea28c17d9fc393b53e3fbdd76899dae</b></h3>
+                  <p>CDD</p>
+                  <p>AMAZONE</p>
+                  <p>Responsable des ventes</p>
+                  <p>De <b>20/01/2017</b> &agrave; <b>20/04/2017</b></p>
+                  <input id="valider" type="submit" value="Valider" onClick='Valider()'>
+                  <input id="refuser" type="submit" value="Refuser" onClick='Refuser()'>
+              </article>
+            </li>
+            <li>
+              <article>
+                  <h3><b>0x93e66d9baea28c17d9fc393b53e3fbdd76899dae</b></h3>
+                  <p>CDD</p>
+                  <p>AMAZONE</p>
+                  <p>Responsable des ventes</p>
+                  <p>De <b>20/01/2017</b> &agrave; <b>20/04/2017</b></p>
+                  <input id="valider" type="submit" value="Valider" onClick='Valider()'>
+                  <input id="refuser" type="submit" value="Refuser" onClick='Refuser()'>
+              </article>
+            </li>
+          </ul>  
+      </article>
+  </body>
+</html>
