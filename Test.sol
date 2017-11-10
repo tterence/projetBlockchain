@@ -30,12 +30,10 @@ contract Test{
     mapping(address => ResponseList) listResp;
     //mapping(address => Response) responses;
     //array d'utilisateur
-    function Test(){
+    function Test() public{
         exp = msg.sender;
     }
-    function sendDemand(address _dest, uint _test)
-    returns(uint)
-    {
+    function sendDemand(address _dest, uint _test) public{
         if (msg.sender != exp) return;
         state = State.PENDING;
         demands[exp].dest = _dest;
@@ -46,11 +44,8 @@ contract Test{
                 exp,
                 state,
                 listResp[_dest].replist.length));
-        return listResp[_dest].replist[0].id;
     }
-    function sendResponse(State _state, uint _id)
-    returns(uint)
-    {
+    function sendResponse(State _state, uint _id) public{
         //if (msg.sender == _dest) return;
         //if (responses[_dest].state == State.NONE) return;
         //or if (state == State.NONE) return;
@@ -65,39 +60,33 @@ contract Test{
                         );
                 }
             }
-            //responses[_exp].state = state;
-            //listCV[responses[_exp].exp].list.push(responses[_exp].demand);
         }
         else{
             state = State.REJECTED;
         }
-        return listCV[listResp[_exp].replist[0].exp].list[0].test;
-    }
-    function getStatus(address add)constant returns(uint[]){
+    }/*
+    function getStatus(address add)constant public returns(uint[]){
         Demand[] truc = listCV[add].list;
         uint[] ret;
         for (uint i=0;  i<truc.length;i++){
             ret.push(truc[i].test);
         }
         return ret;
-    }/*
-    function getResponses(address add)constant returns(address, uint, address, uint){
-        return (responses[add].demand.dest, responses[add].demand.test, responses[add].exp, uint(responses[add].state));
     }*/
-    function getAllIds(address add) returns(address[],uint[],address[],uint[],uint[]){
+    function getAllResponses(address add) public view returns(address[],uint[],address[],uint[],uint[]){
         uint len = listResp[add].replist.length;
-        Response[] resp = listResp[add].replist;
-        uint[] idlist;
-        uint[] statelist;
-        uint[] testlist;
-        address[] destlist;
-        address[] explist;
+        Response[] memory resp = listResp[add].replist;
+        uint[] memory idlist = new uint[](len);
+        uint[] memory statelist = new uint[](len);
+        uint[] memory testlist = new uint[](len);
+        address[] memory destlist = new address[](len);
+        address[] memory explist = new address[](len);
         for (uint i = 0;i<len; i++){
-            destlist.push(resp[i].demand.dest);
-            testlist.push(resp[i].demand.test);
-            idlist.push(resp[i].id);
-            explist.push(resp[i].exp);
-            statelist.push(uint(resp[i].state));
+            destlist[i] = resp[i].demand.dest;
+            testlist[i] = resp[i].demand.test;
+            idlist[i] = resp[i].id;
+            explist[i] = resp[i].exp;
+            statelist[i] = uint(resp[i].state);
         }
         return (destlist,testlist,explist,statelist,idlist);
     }
