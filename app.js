@@ -22,9 +22,9 @@ window.Test = Test;
 // As your needs grow you will likely need to change its form and structure.
 // For application bootstrapping, check out window.addEventListener below.
 var accounts;
-var account;
-var userAccountChoice = []; // 0: demand, 1: response
+var userAccount;
 var responses;
+var responseList = [];
 window.App = {
   start: function() {
     var self = this;
@@ -45,11 +45,9 @@ window.App = {
       }
 
       accounts = accs;
-      account = accounts[0];
       let select = [
         document.getElementById('listeD'),
         document.getElementById('dest'),
-        document.getElementById('listeR')
       ];
       //select.firstChild.remove();
       //var addresses = self.getAddresses();
@@ -123,7 +121,7 @@ window.App = {
       'dest': null,
       'test': 10
     }
-    userAccountChoice[0] = this.selectValue('listeD');
+    userAccount = this.selectValue('listeD');
     data.type = this.selectValue('types');
     data.comment = document.getElementById('desc').value;
     data.dateD = document.getElementById('dateD').value;
@@ -132,8 +130,8 @@ window.App = {
     data.dest = this.selectValue('dest');
     console.log('test',data);
     Test.deployed()
-      .then((instance)=> instance.sendDemand(data.dest, data.test,{'from': userAccountChoice[0],"gas":1000000} ))
-      .then(()=>console.log('demande envoyée sans pb'),()=>console.log('erreur demande'))
+      .then(instance=> instance.sendDemand(data.dest, data.test,{'from': userAccount,"gas":1000000} ))
+      .then(()=>console.log('demande envoyée sans pb',userAccount),()=>console.log('erreur demande'))
   },
   selectValue: function(id){
     let type = document.getElementById(id);
@@ -142,10 +140,48 @@ window.App = {
     return  a? b[a].value : null;
   },
   getResponse: function(){
-    userAccountChoice[1] = this.selectValue('listeR');
+    userAccount = this.selectValue('listeD');
     Test.deployed()
-      .then((instance)=> instance.getResponses(userAccountChoice[1], {'from':userAccountChoice[1],"gas":1000000}))
-      .then((value)=>{responses = value; console.log('rep:'+responses,typeof responses)},(error)=>console.log(error));
+      .then(instance=> instance.getAllResponses(userAccount, {'from':userAccount,"gas":1000000}))
+      .then(value=>{
+          responses = value;
+          console.log('rep:'+responses,typeof responses, userAccount);
+          let objrep = {
+            'dest': null,
+            'test': null,
+            'exp': null,
+            'state': null,
+            'id': null
+          };
+          let objnull = objrep;
+          for (let j = 0; j < responses.map(t=> t.length)[0]; j++) {
+            objrep = objnull;
+            for (let i = 0; i < responses.length; i++){
+              switch(i){
+                case 0:
+                  objrep.dest = responses[i][j].toString();
+                case 1:
+                  objrep.test = responses[i][j].toString(); 
+                break;
+                case 2:
+                  objrep.exp = responses[i][j].toString(); 
+                break;
+                case 3:
+                  objrep.state = responses[i][j].toString(); 
+                break;
+                case 4:
+                  objrep.id = responses[i][j].toString();
+                break;
+              }
+            }
+            responseList[j] = Object.assign({},objrep); 
+          }
+          console.log('resp', responseList);
+        },
+        error=>{
+          console.log('impossible d\'accéder à la liste de Response',error);
+        }
+      );
   }
 };
 
