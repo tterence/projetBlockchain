@@ -142,12 +142,17 @@ window.App = {
   setStatus: function(state,id){
     Test.deployed()
       .then((instance)=> instance.sendResponse(state, id,{'from': userAccount,"gas":1000000} ))
-      .then(()=>console.log('reponse envoyée sans pb'),()=>console.log('erreur reponse'))
+      .then(()=>{
+        console.log('reponse envoyée sans pb');
+        let li = document.getElementById(id);
+        li.style.display = state == 1 || 3 ? 'none' : 'block';
+      },
+      ()=>console.log('erreur reponse'))
   },
   getResponse: function(){
     userAccount = this.selectValue('listeD');
     Test.deployed()
-      .then(instance=> instance.getAllResponses(userAccount, {'from':userAccount,"gas":1000000}))
+      .then(instance=>instance.getAllResponses(userAccount, {'from':userAccount,"gas":1000000}))
       .then(value=>{
           responses = value;
           console.log('rep:'+responses,typeof responses, userAccount);
@@ -158,6 +163,7 @@ window.App = {
             'state': null,
             'id': null
           };
+          responseList = [];
           let objnull = objrep;
           for (let j = 0; j < responses.map(t=> t.length)[0]; j++) {
             objrep = objnull;
@@ -183,28 +189,66 @@ window.App = {
           }
           console.log('resp', responseList);
           let respTodDisplay = document.getElementById('listeRep');
+          respTodDisplay.innerHTML = '';
           responseList.map(response=>{
-            if(response.state ==2 && response.id > sizeof(response.id))
+            response.state == 2 ?
               respTodDisplay.innerHTML +=
-            '<li id='+response.id+'>'+
-              '<article>'+
-                '<h3>'+
-                  response.exp+
-                '</h3>'+
-                '<p>'+
-                  response.test+
-                '</p>'+
-                '<input type="submit" value="Valider" id="valider" onclick="App.setStatus(1,'+response.id+')">'+
-                '<input type="submit" value="Refuser" id="refuser" onclick="App.setStatus(3,'+response.id+')">'+
-              '</article>'+
-            '</li>' 
-            else null
+              '<li id='+response.id+'>'+
+                '<article>'+
+                  '<h3>'+
+                    response.exp+
+                  '</h3>'+
+                  '<p>'+
+                    response.test+
+                  '</p>'+
+                  '<input type="submit" value="Valider" id="valider" onclick="App.setStatus(1,'+response.id+')">'+
+                  '<input type="submit" value="Refuser" id="refuser" onclick="App.setStatus(3,'+response.id+')">'+
+                '</article>'+
+              '</li>'
+            : null;
           });
         },
         error=>{
           console.log('impossible d\'accéder à la liste de Response',error);
         }
       );
+      Test.deployed()
+      .then(instance=> instance.getCv(userAccount,{'from': userAccount,"gas":1000000}))
+      .then(value=>{
+        let cvTodDisplay = document.getElementById('listeCV');
+        let cvs = value;
+        let cvList = [];
+        let objrep = {
+            'dest': null,
+            'test': null
+          };
+        let objnull = objrep;
+        for (let j = 0; j < cvs.map(t=> t.length)[0]; j++) {
+          objrep = objnull;
+          for (let i = 0; i < cvs.length; i++){
+            if(i==0)
+              objrep.dest = cvs[i][j].toString();
+            else
+              objrep.test = cvs[i][j].toString();
+          }
+          cvList[j] = Object.assign({},objrep); 
+        }
+        cvTodDisplay.innerHTML = "";
+        cvList.map(cv=>{
+          cvTodDisplay.innerHTML +=
+          '<li>'+
+            '<article>'+
+              '<p>'+
+                cv.test+
+              '</p>'+
+              '<p>'+
+                'Valid&eacute; par'+ cv.dest+
+              '</p>'+
+            '</article>'+
+          '</li>'
+        });
+      },
+      error=>console.log(error));
   }
 };
 

@@ -33,9 +33,10 @@ contract Test{
     function Test() public{
     }
     modifier destIsNotExp(address _d) { 
-        require(msg.sender != _d); 
+        require(msg.sender == _d); 
         _; 
     }
+    
     function sendDemand(address _dest, uint _test) destIsNotExp(_dest) public{
         //if (msg.sender != exp) return;
         state = State.PENDING;
