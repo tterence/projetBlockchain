@@ -31,11 +31,15 @@ contract Test{
     //mapping(address => Response) responses;
     //array d'utilisateur
     function Test() public{
-        exp = msg.sender;
     }
-    function sendDemand(address _dest, uint _test) public{
-        if (msg.sender != exp) return;
+    modifier destIsNotExp(address _d) { 
+        require(msg.sender != _d); 
+        _; 
+    }
+    function sendDemand(address _dest, uint _test) destIsNotExp(_dest) public{
+        //if (msg.sender != exp) return;
         state = State.PENDING;
+        exp = msg.sender;
         demands[exp].dest = _dest;
         demands[exp].test = _test;
         listResp[_dest].replist.push(
@@ -73,7 +77,18 @@ contract Test{
         }
         return ret;
     }*/
-    function getAllResponses(address add) public view returns(address[],uint[],address[],uint[],uint[]){
+    function getCv(address add)constant public returns(address[], uint[]){
+        Demand[] memory truc = listCV[add].list;
+        uint leng = truc.length;
+        uint[] memory _test = new uint[](leng);
+        address[] memory _add = new address[](leng);
+        for (uint i=0;  i<truc.length;i++){
+            _test[i] = truc[i].test;
+            _add[i] = truc[i].dest;
+        }
+        return (_add, _test);
+    }
+    function getAllResponses(address add) public constant returns(address[],uint[],address[],uint[],uint[]){
         uint len = listResp[add].replist.length;
         Response[] memory resp = listResp[add].replist;
         uint[] memory idlist = new uint[](len);
