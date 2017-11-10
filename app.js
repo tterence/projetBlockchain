@@ -177,6 +177,21 @@ window.App = {
             responseList[j] = Object.assign({},objrep); 
           }
           console.log('resp', responseList);
+          let respTodDisplay = document.getElementById('listeRep');
+          responseList.map(response=>
+            respTodDisplay.innerHTML +=
+            '<li id='+response.id+'>'+
+              '<article>'+
+                '<h3>'+
+                  response.exp+
+                '</h3>'+
+                '<p>'+
+                  response.test+
+                '</p>'+
+                '<input type="submit" value="Valider" id="valider" onclick="App.setStatus(1,'+response.id+')">'+
+                '<input type="submit" value="Refuser" id="refuser" onclick="App.setStatus(0,'+response.id+')">'+
+              '</article>'+
+            '</li>')
         },
         error=>{
           console.log('impossible d\'accéder à la liste de Response',error);
