@@ -139,6 +139,11 @@ window.App = {
     let b = type.options;
     return  a? b[a].value : null;
   },
+  setStatus: function(state,id){
+    Test.deployed()
+      .then((instance)=> instance.sendResponse(state, id,{'from': userAccount,"gas":1000000} ))
+      .then(()=>console.log('reponse envoyée sans pb'),()=>console.log('erreur reponse'))
+  },
   getResponse: function(){
     userAccount = this.selectValue('listeD');
     Test.deployed()
@@ -178,8 +183,9 @@ window.App = {
           }
           console.log('resp', responseList);
           let respTodDisplay = document.getElementById('listeRep');
-          responseList.map(response=>
-            respTodDisplay.innerHTML +=
+          responseList.map(response=>{
+            if(response.state ==2 && response.id > sizeof(response.id))
+              respTodDisplay.innerHTML +=
             '<li id='+response.id+'>'+
               '<article>'+
                 '<h3>'+
@@ -189,9 +195,11 @@ window.App = {
                   response.test+
                 '</p>'+
                 '<input type="submit" value="Valider" id="valider" onclick="App.setStatus(1,'+response.id+')">'+
-                '<input type="submit" value="Refuser" id="refuser" onclick="App.setStatus(0,'+response.id+')">'+
+                '<input type="submit" value="Refuser" id="refuser" onclick="App.setStatus(3,'+response.id+')">'+
               '</article>'+
-            '</li>')
+            '</li>' 
+            else null
+          });
         },
         error=>{
           console.log('impossible d\'accéder à la liste de Response',error);
